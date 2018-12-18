@@ -5,16 +5,6 @@ var notes = require('./notes.js');
 var argv = yargs.argv;
 console.log(argv);
 
-// function saveNote(title, body) {
-//     var note = [{
-//         title,
-//         body
-//     }];
-//     console.log('NOTE IS: ', note);
-//     wfs('notes.json', JSON.stringify(note));
-//     console.log('Note is successfully created.');
-// }
-
 switch(argv._[0]) {
     case 'save':
         console.log('saving note...');
@@ -26,12 +16,18 @@ switch(argv._[0]) {
         break;
     case 'add':
         console.log('adding notes...');
-        try {
-            var notesString = rfs('hello.json');
-        }
-        catch(err) {
-            console.log('adding notes fail...');
-            console.log(err);
+        notes.addNote(argv.title, argv.body);
+        break;
+    case 'fetch':
+        console.log('fetching all notes...');
+        notes.fetchNotes();
+        break;
+    case 'delete':
+        console.log('deleting note...');
+        if (argv.title) {
+            notes.deleteNote(argv.title);
+        } else {
+            console.log('Deleting note failed. Please indicate title');
         }
         break;
     default:
