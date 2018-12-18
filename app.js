@@ -3,7 +3,6 @@ var _ = require('lodash');
 var notes = require('./notes.js');
 
 var argv = yargs.argv;
-console.log(argv);
 
 switch(argv._[0]) {
     case 'save':
@@ -16,7 +15,11 @@ switch(argv._[0]) {
         break;
     case 'add':
         console.log('adding notes...');
-        notes.addNote(argv.title, argv.body);
+        if (argv.title && argv.body) { 
+            notes.addNote(argv.title, argv.body);
+        } else {
+            console.log('Adding note failed. Please indicate title and body.');
+        }
         break;
     case 'fetch':
         console.log('fetching all notes...');
